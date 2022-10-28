@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+                  <meta charset="UTF-8">
+                  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Weather Report</title>
+                 
+</head>
+<style>
+   .head{
+    height:750px;
+    width:1575px;
+   }
+  .header{
+    position: absolute;
+  top: 25%;
+  right: 75%;
+  transform: translate(-50%, -50%);
+  font-style:italic;
+  background-color:rgb(105,105,105);
+  color:white;
+  }
+  .header1{
+    position: absolute;
+  top: 15%;
+  right: 68%;
+  transform: translate(-50%, -50%);
+  font-style:italic;
+  font-size:50px;
+  }
+  .main1{
+    position: absolute;
+    top: 37%;
+  right: 75%;
+  transform: translate(-50%, -50%);
+  /* background-color:black;*/
+  
+  color:white; 
+  background-color:black;
+  }
+  .main{
+    position: absolute;
+    top: 33%;
+  right: 75%;
+  transform: translate(-50%, -50%);
+  /* background-color:black;
+  background-color:black;
+  color:white; */
+  border:black;
+  }
+</style>
+
+<body>
+    <img class="head" src="weather.webp" alt="Weather">
+   <h1 class="header1">Weather report</h1>
+        <h1 id="output" class="header" >Enter a place</h1>  
+        <input id="city" class="main">
+        <button  class="main1"onclick="show_temp()">Submit</button>
+   
+    <script type="text/javascript">
+        function show_temp(){
+            document.getElementById("output").style.color="white";
+            document.getElementById("output").style.fontsize="20px";
+            city=document.getElementById("city").value;
+            httpRequest=new XMLHttpRequest();
+            url="https://api.weatherbit.io/v2.0/current?city="+city+"&key=ca67607f6f2d4cd89efd05b65c68f821";
+            httpRequest.open("GET",url);
+            httpRequest.send();
+            httpRequest.onreadystatechange=function(){
+                if(this.readyState==4 && this.status==200){
+                    user_data=JSON.parse(this.responseText);
+                    document.getElementById("output").innerHTML=user_data.data[0].temp;
+                }
+            }
+        }
+        
+    </script>
+    
+</body>
+</html>
